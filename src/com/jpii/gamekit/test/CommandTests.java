@@ -37,8 +37,4 @@ public class CommandTests {
 		Command cmd = new Command("test", "<required> [optional]", "testCommandArgs", new CommandAction());
 		assertEquals("Result", "<required> [optional]", cmd.getArgs());
 	}
-	
-	public int multiply(int x, int y) {
-		return x * y;
-	}
 }
