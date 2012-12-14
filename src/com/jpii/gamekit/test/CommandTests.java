@@ -2,10 +2,13 @@ package com.jpii.gamekit.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import com.jpii.gamekit.debug.Command;
 import com.jpii.gamekit.debug.CommandAction;
+import com.jpii.gamekit.debug.CommandHandler;
 
 public class CommandTests {
 	@Test
@@ -36,5 +39,16 @@ public class CommandTests {
 	public void testCommandArgs() {
 		Command cmd = new Command("test", "<required> [optional]", "testCommandArgs", new CommandAction());
 		assertEquals("Result", "<required> [optional]", cmd.getArgs());
+	}
+	
+	@Test
+	public void testCommandHandlerConstructor() {
+		CommandHandler cmdHandler = new CommandHandler();
+		assertEquals("Result", 0, cmdHandler.getCommands().size());
+		
+		ArrayList<Command> cmds = new ArrayList<Command>();
+		cmds.add(new Command("test", "", "testCommandHandlerConstructor", new CommandAction()));
+		cmdHandler = new CommandHandler(cmds);
+		assertEquals("Result", 0, cmdHandler.getCommands().size());
 	}
 }
