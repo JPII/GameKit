@@ -7,9 +7,12 @@ public class Debugger {
 	private static Debugger instance;
 	private DebugWindow debugWindow;
 	private boolean loggingPaused;
-	
 	private ArrayList<String> savedLogs;
 	
+	/**
+	 * Create a new <code>Debugger</code> instance.
+	 * @param title
+	 */
 	public Debugger(String title) {
 		instance = this;
 		debugWindow = new DebugWindow(title);
@@ -17,6 +20,9 @@ public class Debugger {
 		savedLogs = new ArrayList<String>();
 	}
 	
+	/**
+	 * Set the <code>DebugWindow</code> to visible.
+	 */
 	public void showDebugWindow() {
 		debugWindow.setVisible(true);
 	}
@@ -78,6 +84,10 @@ public class Debugger {
 		addText(message + "\n");
 	}
 	
+	/**
+	 * Adds text to the <code>DebugWindow</code>.
+	 * @param message
+	 */
 	private void addText(String message){
 		if(!loggingPaused)
 			debugWindow.getDebugPrinter().setText(debugWindow.getDebugPrinter().getText() + message);
@@ -86,6 +96,9 @@ public class Debugger {
 		}
 	}
 	
+	/**
+	 * Clear screen.
+	 */
 	private void clearText(){
 		debugWindow.getDebugPrinter().setText("");
 	}
@@ -109,14 +122,34 @@ public class Debugger {
 		}
 	}
 	
+	/**
+	 * Register a command.
+	 * @param command
+	 */
+	public void registerCommand(Command command) {
+		debugWindow.getCommandHandler().registerCommand(command);
+	}
+	
+	/**
+	 * Get current <code>DebugWindow</code>.
+	 * @return
+	 */
 	public DebugWindow getDebugWindow() {
 		return debugWindow;
 	}
 	
+	/**
+	 * Get current <code>CommandHandler</code>.
+	 * @return
+	 */
 	public CommandHandler getCommandHandler() {
 		return debugWindow.getCommandHandler();
 	}
 	
+	/**
+	 * Get current <code>Debugger</code> instance.
+	 * @return
+	 */
 	public static Debugger getInstance() {
 		return instance;
 	}

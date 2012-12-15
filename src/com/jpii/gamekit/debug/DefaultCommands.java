@@ -10,7 +10,7 @@ public class DefaultCommands {
 	public static final ArrayList<Command> COMMANDS = new ArrayList<Command>() {{
 	    add(new Command("help", "", "View all commands", new CommandAction() { 
 	    	public void onRun(Command c, String[] args) {
-	    		Debugger.getInstance().println("----------------- NavalBattle Debug Help -----------------");
+	    		Debugger.getInstance().println("----------------- GameKit Debug Help -----------------");
 	    		for(Command cmd : Debugger.getInstance().getCommandHandler().getCommands()) {
 	    			Debugger.getInstance().println(cmd.getCommand() + " " + cmd.getArgs() + " - " + cmd.getDescription());
 	    		}
