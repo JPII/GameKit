@@ -79,7 +79,7 @@ public class CommandHandler {
 		}
 		
 		if(!isCommand) {
-			//NavalBattle.getDebugWindow().printError("'" + command + "' is not a registered command");
+			Debugger.getInstance().printError("'" + command + "' is not a registered command");
 		}
 	}
 	
