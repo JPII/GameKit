@@ -88,7 +88,6 @@ public class DebugWindow extends JFrame {
 	
 	/**
 	 * Returns current instance of CommandHandler.
-	 * 
 	 * @return commandHandler
 	 */
 	public CommandHandler getCommandHandler() {

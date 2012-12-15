@@ -25,7 +25,6 @@ public class CommandHandler {
 	
 	/**
 	 * Construct a CommandHandler instance
-	 * 
 	 * @param commands
 	 */
 	public CommandHandler() {
@@ -34,7 +33,6 @@ public class CommandHandler {
 	
 	/**
 	 * Construct a CommandHandler instance
-	 * 
 	 * @param commands
 	 */
 	public CommandHandler(ArrayList<Command> commands) {		
@@ -45,7 +43,6 @@ public class CommandHandler {
 
 	/**
 	 * Register command.
-	 * 
 	 * @param command
 	 */
 	public void registerCommand(Command command) {
@@ -55,7 +52,6 @@ public class CommandHandler {
 	
 	/**
 	 * Parse command.
-	 * 
 	 * @param command
 	 */
 	public void parseCommand(String command) {
@@ -90,18 +86,17 @@ public class CommandHandler {
 	private void sort(ArrayList<Command> commands) {
 		for(int index = 1; index < commands.size(); index++) {
 			for(int count = 0; count < commands.size()-index; count++) {	
-					if(commands.get(count).getCommand().compareTo(commands.get(count+1).getCommand())>=0){
-						Command switcher = commands.get(count);
-						commands.set(count, commands.get(count+1));
-						commands.set(count+1, switcher);
-					}
+				if(commands.get(count).getCommand().compareTo(commands.get(count+1).getCommand())>=0){
+					Command switcher = commands.get(count);
+					commands.set(count, commands.get(count+1));
+					commands.set(count+1, switcher);
 				}
 			}
+		}
 	}
 	
 	/**
 	 * Get commands.
-	 * 
 	 * @return
 	 */
 	public ArrayList<Command> getCommands() {

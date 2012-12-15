@@ -26,7 +26,6 @@ public class Command implements Comparable<Command> {
 
 	/**
 	 * Construct a Command.
-	 * 
 	 * @param command
 	 * @param args
 	 * @param description
