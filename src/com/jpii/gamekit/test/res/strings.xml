@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+	<string name="test_value">Hello</string>
+	<string name="en_only">This string is in English only</string>
+	
+</resources>
