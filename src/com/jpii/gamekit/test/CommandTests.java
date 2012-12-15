@@ -58,4 +58,13 @@ public class CommandTests {
 		cmdHandler.registerCommand(new Command("test", "", "testCommandHandlerRegister", new CommandAction()));
 		assertEquals("Result", "test", cmdHandler.getCommands().get(0).getCommand());
 	}
+	
+	@Test
+	public void testCommandHandlerSort() {
+		CommandHandler cmdHandler = new CommandHandler();
+		cmdHandler.registerCommand(new Command("b", "", "testCommandHandlerSort", new CommandAction()));
+		cmdHandler.registerCommand(new Command("a", "", "testCommandHandlerSort", new CommandAction()));
+		
+		assertEquals("Result", "a", cmdHandler.getCommands().get(0).getCommand());
+	}
 }
