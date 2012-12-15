@@ -11,6 +11,7 @@ import com.jpii.gamekit.debug.CommandAction;
 import com.jpii.gamekit.debug.CommandHandler;
 
 public class CommandTests {
+	
 	@Test
 	public void testCommandBase() {
 		Command cmd = new Command("test", "", "testCommandBase", new CommandAction());
