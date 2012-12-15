@@ -49,6 +49,13 @@ public class CommandTests {
 		ArrayList<Command> cmds = new ArrayList<Command>();
 		cmds.add(new Command("test", "", "testCommandHandlerConstructor", new CommandAction()));
 		cmdHandler = new CommandHandler(cmds);
-		assertEquals("Result", 0, cmdHandler.getCommands().size());
+		assertEquals("Result", 1, cmdHandler.getCommands().size());
+	}
+	
+	@Test
+	public void testCommandHandlerRegister() {
+		CommandHandler cmdHandler = new CommandHandler();
+		cmdHandler.registerCommand(new Command("test", "", "testCommandHandlerRegister", new CommandAction()));
+		assertEquals("Result", "test", cmdHandler.getCommands().get(0).getCommand());
 	}
 }
