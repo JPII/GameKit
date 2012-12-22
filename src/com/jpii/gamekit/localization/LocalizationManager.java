@@ -1,11 +1,8 @@
 package com.jpii.gamekit.localization;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,37 +20,39 @@ public class LocalizationManager {
 
 	private Locale currentLocale;
 	private String langCode;
-	private InputStream defaultStrings;
-	private InputStream currentStrings;
+	private InputStream defaultStringsInputStream;
+	private InputStream currentStringsInputStream;
+	private HashMap<String, String> defaultStrings = new HashMap<String, String>();
+	private HashMap<String, String> currentStrings = new HashMap<String, String>();
 
-	public LocalizationManager(Class reference, String dir) {
+	public LocalizationManager(Class<?> reference, String dir) {
 		currentLocale = Locale.getDefault();
 		langCode = currentLocale.toString().substring(0, 2);
 
-		defaultStrings = reference.getResourceAsStream(dir + "/strings.xml");
-		currentStrings = reference.getResourceAsStream(dir + "/strings-" + langCode + ".xml");
+		defaultStringsInputStream = reference.getResourceAsStream(dir + "/strings.xml");
+		currentStringsInputStream = reference.getResourceAsStream(dir + "/strings-" + langCode + ".xml");
 
 		if(langCode.equalsIgnoreCase("en")) {
-			currentStrings = defaultStrings;
+			currentStringsInputStream = defaultStringsInputStream;
 		}
 
-		Document doc = newDocumentFromInputStream(currentStrings);
+		Document doc = newDocumentFromInputStream(defaultStringsInputStream);
 
-		NodeList resources = doc.getElementsByTagName("resources");
+		Element rootElement = doc.getDocumentElement();
+		NodeList nodes = rootElement.getChildNodes();
 
-		for (int i = 0; i < resources.getLength(); i++) {
-			Node firstNode = resources.item(i);
+		for(int i=0; i<nodes.getLength(); i++){
+			Node node = nodes.item(i);
 
-			if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
-
-				Element element = (Element) firstNode;
-				NodeList stringElementList = element.getElementsByTagName("string");
-				Element stringElement = (Element) stringElementList.item(0);
-				NodeList string = stringElement.getChildNodes();
-				System.out.println("Value: " + string.item(0).getNodeValue() + " at " + string.item(0));
-
+			if(node instanceof Element){
+				Element child = (Element) node;
+				String attribute = child.getAttribute("name");
+				System.out.println(attribute);
 			}
 		}
+
+		//importCurrentStrings(newDocumentFromInputStream(currentStringsInputStream));
+		importDefaultStrings(newDocumentFromInputStream(defaultStringsInputStream));
 	}
 
 	public static Document newDocumentFromInputStream(InputStream in) {
@@ -94,11 +93,49 @@ public class LocalizationManager {
 		return langCode;
 	}
 
-	public InputStream getDefaultStringsUrl() {
+	public InputStream getDefaultStringsInputStream() {
+		return defaultStringsInputStream;
+	}
+
+	public InputStream getCurrentStringsInputStream() {
+		return currentStringsInputStream;
+	}
+
+	public HashMap<String, String> getDefaultStrings() {
 		return defaultStrings;
 	}
 
-	public InputStream getCurrentStringsUrl() {
+	public HashMap<String, String> getCurrentStrings() {
 		return currentStrings;
+	}
+
+	private void importCurrentStrings(Document doc) {
+		Element rootElement = doc.getDocumentElement();
+		NodeList nodes = rootElement.getChildNodes();
+
+		for(int i=0; i<nodes.getLength(); i++){
+			Node node = nodes.item(i);
+
+			if(node instanceof Element){
+				Element child = (Element) node;
+				String attribute = child.getAttribute("name");
+				System.out.println(attribute);
+			}
+		}
+	}
+
+	private void importDefaultStrings(Document doc) {
+		Element rootElement = doc.getDocumentElement();
+		NodeList nodes = rootElement.getChildNodes();
+
+		for(int i=0; i<nodes.getLength(); i++){
+			Node node = nodes.item(i);
+
+			if(node instanceof Element){
+				Element child = (Element) node;
+				String attribute = child.getAttribute("name");
+				System.out.println(attribute);
+			}
+		}
 	}
 }
