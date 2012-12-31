@@ -2,6 +2,7 @@ package com.jpii.gamekit.localization;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -20,6 +21,7 @@ public class LocalizationManager {
 
 	private Locale currentLocale;
 	private String langCode;
+	private boolean badFile = false;
 	private InputStream defaultStringsInputStream;
 	private InputStream currentStringsInputStream;
 	private HashMap<String, String> defaultStrings = new HashMap<String, String>();
@@ -37,10 +39,6 @@ public class LocalizationManager {
 		defaultStringsInputStream = reference.getResourceAsStream(dir + "/strings.xml");
 		currentStringsInputStream = reference.getResourceAsStream(dir + "/strings-" + langCode + ".xml");
 
-		if(langCode.equalsIgnoreCase("en")) {
-			currentStringsInputStream = defaultStringsInputStream;
-		}
-
 		Document defaultStringDoc = newDocumentFromInputStream(defaultStringsInputStream);
 
 		Element defaultStringRootElement = defaultStringDoc.getDocumentElement();
@@ -55,10 +53,25 @@ public class LocalizationManager {
 			}
 		}
 		
-		if(!langCode.equals("en")) {
-			Document currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
+		if(!langCode.equals("en") && !badFile) {
+			Document currentStringDoc;
 
-			Element currentStringRootElement = currentStringDoc.getDocumentElement();
+			try {
+				currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
+			} catch (Exception e) {
+				badFile = true;
+				return;
+			}
+
+			Element currentStringRootElement;
+			
+			try {
+				currentStringRootElement = currentStringDoc.getDocumentElement();
+			} catch (Exception e) {
+				badFile = true;
+				return;
+			}
+
 			NodeList currentStringNodes = currentStringRootElement.getChildNodes();
 
 			for(int i = 0; i < currentStringNodes.getLength(); i++){
@@ -88,10 +101,6 @@ public class LocalizationManager {
 		defaultStringsInputStream = reference.getResourceAsStream(dir + "/strings.xml");
 		currentStringsInputStream = reference.getResourceAsStream(dir + "/strings-" + langCode + ".xml");
 
-		if(langCode.equalsIgnoreCase("en")) {
-			currentStringsInputStream = defaultStringsInputStream;
-		}
-
 		Document defaultStringDoc = newDocumentFromInputStream(defaultStringsInputStream);
 
 		Element defaultStringRootElement = defaultStringDoc.getDocumentElement();
@@ -107,9 +116,24 @@ public class LocalizationManager {
 		}
 		
 		if(!langCode.equals("en")) {
-			Document currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
+			Document currentStringDoc;
 
-			Element currentStringRootElement = currentStringDoc.getDocumentElement();
+			try {
+				currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
+			} catch (Exception e) {
+				badFile = true;
+				return;
+			}
+			
+			Element currentStringRootElement;
+			
+			try {
+				currentStringRootElement = currentStringDoc.getDocumentElement();
+			} catch (Exception e) {
+				badFile = true;
+				return;
+			}
+			
 			NodeList currentStringNodes = currentStringRootElement.getChildNodes();
 
 			for(int i = 0; i < currentStringNodes.getLength(); i++){
@@ -132,7 +156,7 @@ public class LocalizationManager {
 	 * @return
 	 */
 	public String getString(String key) {
-		if(!langCode.equals("en")) {
+		if(!langCode.equals("en") && !badFile) {
 			if(currentStrings.get(key) != null)
 				return currentStrings.get(key);
 		}
@@ -207,17 +231,13 @@ public class LocalizationManager {
 		try {
 			factory = DocumentBuilderFactory.newInstance();
 			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
+		} catch (ParserConfigurationException e) { }
 
 		try {
 			ret = builder.parse(new InputSource(in));
 		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { }
+		
 		return ret;
 	}
 }

@@ -27,4 +27,13 @@ public class LocalizationTest {
 		assertEquals("Result", "This string is in English only", localizationManager.getString("en_only"));
 		assertEquals("Result", "undefined_string", localizationManager.getString("undefined_string"));
 	}
+	
+	@Test
+	public void testBadForeignLocalization() {
+		LocalizationManager localizationManager = new LocalizationManager(LocalizationTest.class, "/com/jpii/gamekit/test/res", "fr");
+		
+		assertEquals("Result", "Hello", localizationManager.getString("test_value"));
+		assertEquals("Result", "This string is in English only", localizationManager.getString("en_only"));
+		assertEquals("Result", "undefined_string", localizationManager.getString("undefined_string"));
+	}
 }
