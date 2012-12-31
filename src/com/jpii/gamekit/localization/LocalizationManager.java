@@ -36,23 +36,43 @@ public class LocalizationManager {
 			currentStringsInputStream = defaultStringsInputStream;
 		}
 
-		Document doc = newDocumentFromInputStream(defaultStringsInputStream);
+		// DEFAULT STRINGS
+		Document defaultStringDoc = newDocumentFromInputStream(defaultStringsInputStream);
 
-		Element rootElement = doc.getDocumentElement();
-		NodeList nodes = rootElement.getChildNodes();
+		Element defaultStringRootElement = defaultStringDoc.getDocumentElement();
+		NodeList defaultStringNodes = defaultStringRootElement.getChildNodes();
 
-		for(int i=0; i<nodes.getLength(); i++){
-			Node node = nodes.item(i);
+		for(int i = 0; i < defaultStringNodes.getLength(); i++){
+			Node defaultStringNode = defaultStringNodes.item(i);
 
-			if(node instanceof Element){
-				Element child = (Element) node;
-				String attribute = child.getAttribute("name");
-				System.out.println(attribute);
+			if(defaultStringNode instanceof Element){
+				Element defaultStringChild = (Element) defaultStringNode;
+				defaultStrings.put(defaultStringChild.getAttribute("name"), defaultStringChild.getChildNodes().item(0).getNodeValue());
 			}
 		}
+		
+		System.out.println("Imported " + defaultStrings.size() + " default Strings");
+		
+		// CURRENT STRINGS
+		if(!langCode.equals("en")) {
+			Document currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
 
-		//importCurrentStrings(newDocumentFromInputStream(currentStringsInputStream));
-		importDefaultStrings(newDocumentFromInputStream(defaultStringsInputStream));
+			Element currentStringRootElement = currentStringDoc.getDocumentElement();
+			NodeList currentStringNodes = currentStringRootElement.getChildNodes();
+
+			for(int i = 0; i < currentStringNodes.getLength(); i++){
+				Node node = currentStringNodes.item(i);
+
+				if(node instanceof Element){
+					Element currentStringChild = (Element) node;
+					currentStrings.put(currentStringChild.getAttribute("name"), currentStringChild.getChildNodes().item(0).getNodeValue());
+				}
+			}
+			
+			System.out.println("Imported " + currentStrings.size() + " current Strings");
+		} else {
+			System.out.println("Current locale is en, so ignoring current strings");
+		}
 	}
 
 	public static Document newDocumentFromInputStream(InputStream in) {
@@ -107,35 +127,5 @@ public class LocalizationManager {
 
 	public HashMap<String, String> getCurrentStrings() {
 		return currentStrings;
-	}
-
-	private void importCurrentStrings(Document doc) {
-		Element rootElement = doc.getDocumentElement();
-		NodeList nodes = rootElement.getChildNodes();
-
-		for(int i=0; i<nodes.getLength(); i++){
-			Node node = nodes.item(i);
-
-			if(node instanceof Element){
-				Element child = (Element) node;
-				String attribute = child.getAttribute("name");
-				System.out.println(attribute);
-			}
-		}
-	}
-
-	private void importDefaultStrings(Document doc) {
-		Element rootElement = doc.getDocumentElement();
-		NodeList nodes = rootElement.getChildNodes();
-
-		for(int i=0; i<nodes.getLength(); i++){
-			Node node = nodes.item(i);
-
-			if(node instanceof Element){
-				Element child = (Element) node;
-				String attribute = child.getAttribute("name");
-				System.out.println(attribute);
-			}
-		}
 	}
 }
