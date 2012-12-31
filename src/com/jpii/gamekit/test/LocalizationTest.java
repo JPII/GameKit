@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.jpii.gamekit.debug.Command;
-import com.jpii.gamekit.debug.CommandAction;
 import com.jpii.gamekit.localization.LocalizationManager;
 
 public class LocalizationTest {
