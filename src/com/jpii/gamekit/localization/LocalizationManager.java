@@ -75,7 +75,69 @@ public class LocalizationManager {
 		}
 	}
 
-	public static Document newDocumentFromInputStream(InputStream in) {
+	/**
+	 * Searches through <code>currentStrings</code> and defaults to 
+	 * <code>defaultStrings</code> if the String could not be found. 
+	 * If the search fails completely, the key is returned. 
+	 * Search is case sensitive.
+	 * @param key
+	 * @return
+	 */
+	public String getString(String key) {
+		if(!langCode.equals("en")) {
+			if(currentStrings.get(key) != null)
+				return currentStrings.get(key);
+		} else {
+			System.out.println("Skipping currentStrings");
+		}
+		
+		for(int i = 0; i < defaultStrings.size(); i++) {
+			if(defaultStrings.get(key) != null)
+				return defaultStrings.get(key);
+		}
+		
+		return key;
+	}
+
+	/**
+	 * Get current <code>Locale</code> in use by the system.
+	 * @return
+	 */
+	public Locale getLocale() {
+		return currentLocale;
+	}
+
+	/**
+	 * Get current language code. The language code is a trimmed
+	 * version of the <code>Locale</code>.
+	 * @return
+	 */
+	public String getLanguageCode() {
+		return langCode;
+	}
+
+	public InputStream getDefaultStringsInputStream() {
+		return defaultStringsInputStream;
+	}
+
+	public InputStream getCurrentStringsInputStream() {
+		return currentStringsInputStream;
+	}
+
+	public HashMap<String, String> getDefaultStrings() {
+		return defaultStrings;
+	}
+
+	public HashMap<String, String> getCurrentStrings() {
+		return currentStrings;
+	}
+	
+	/**
+	 * Creates a <code>Document</code> from an <code>InputStream</code>.
+	 * @param in
+	 * @return
+	 */
+	public Document newDocumentFromInputStream(InputStream in) {
 		DocumentBuilderFactory factory = null;
 		DocumentBuilder builder = null;
 		Document ret = null;
@@ -95,37 +157,5 @@ public class LocalizationManager {
 			e.printStackTrace();
 		}
 		return ret;
-	}
-
-	public String getString(String key) {
-		return "";
-	}
-
-	/**
-	 * Get current <code>Locale</code> in use by the system.
-	 * @return
-	 */
-	public Locale getLocale() {
-		return currentLocale;
-	}
-
-	public String getLanguageCode() {
-		return langCode;
-	}
-
-	public InputStream getDefaultStringsInputStream() {
-		return defaultStringsInputStream;
-	}
-
-	public InputStream getCurrentStringsInputStream() {
-		return currentStringsInputStream;
-	}
-
-	public HashMap<String, String> getDefaultStrings() {
-		return defaultStrings;
-	}
-
-	public HashMap<String, String> getCurrentStrings() {
-		return currentStrings;
 	}
 }
