@@ -25,6 +25,11 @@ public class LocalizationManager {
 	private HashMap<String, String> defaultStrings = new HashMap<String, String>();
 	private HashMap<String, String> currentStrings = new HashMap<String, String>();
 
+	/**
+	 * <code>LocalizationManager</code> constructor.
+	 * @param reference
+	 * @param dir
+	 */
 	public LocalizationManager(Class<?> reference, String dir) {
 		currentLocale = Locale.getDefault();
 		langCode = currentLocale.toString().substring(0, 2);
@@ -36,7 +41,6 @@ public class LocalizationManager {
 			currentStringsInputStream = defaultStringsInputStream;
 		}
 
-		// DEFAULT STRINGS
 		Document defaultStringDoc = newDocumentFromInputStream(defaultStringsInputStream);
 
 		Element defaultStringRootElement = defaultStringDoc.getDocumentElement();
@@ -51,9 +55,6 @@ public class LocalizationManager {
 			}
 		}
 		
-		System.out.println("Imported " + defaultStrings.size() + " default Strings");
-		
-		// CURRENT STRINGS
 		if(!langCode.equals("en")) {
 			Document currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
 
@@ -68,10 +69,57 @@ public class LocalizationManager {
 					currentStrings.put(currentStringChild.getAttribute("name"), currentStringChild.getChildNodes().item(0).getNodeValue());
 				}
 			}
-			
-			System.out.println("Imported " + currentStrings.size() + " current Strings");
-		} else {
-			System.out.println("Current locale is en, so ignoring current strings");
+		}
+	}
+	
+	/**
+	 * <code>LocalizationManager</code> debug constructor. 
+	 * Used to override current language for testing.
+	 * @param reference
+	 * @param dir
+	 * @param lang
+	 */
+	public LocalizationManager(Class<?> reference, String dir, String lang) {
+		currentLocale = Locale.getDefault();
+		langCode = currentLocale.toString().substring(0, 2);
+		
+		langCode = lang;
+
+		defaultStringsInputStream = reference.getResourceAsStream(dir + "/strings.xml");
+		currentStringsInputStream = reference.getResourceAsStream(dir + "/strings-" + langCode + ".xml");
+
+		if(langCode.equalsIgnoreCase("en")) {
+			currentStringsInputStream = defaultStringsInputStream;
+		}
+
+		Document defaultStringDoc = newDocumentFromInputStream(defaultStringsInputStream);
+
+		Element defaultStringRootElement = defaultStringDoc.getDocumentElement();
+		NodeList defaultStringNodes = defaultStringRootElement.getChildNodes();
+
+		for(int i = 0; i < defaultStringNodes.getLength(); i++){
+			Node defaultStringNode = defaultStringNodes.item(i);
+
+			if(defaultStringNode instanceof Element){
+				Element defaultStringChild = (Element) defaultStringNode;
+				defaultStrings.put(defaultStringChild.getAttribute("name"), defaultStringChild.getChildNodes().item(0).getNodeValue());
+			}
+		}
+		
+		if(!langCode.equals("en")) {
+			Document currentStringDoc = newDocumentFromInputStream(currentStringsInputStream);
+
+			Element currentStringRootElement = currentStringDoc.getDocumentElement();
+			NodeList currentStringNodes = currentStringRootElement.getChildNodes();
+
+			for(int i = 0; i < currentStringNodes.getLength(); i++){
+				Node node = currentStringNodes.item(i);
+
+				if(node instanceof Element){
+					Element currentStringChild = (Element) node;
+					currentStrings.put(currentStringChild.getAttribute("name"), currentStringChild.getChildNodes().item(0).getNodeValue());
+				}
+			}
 		}
 	}
 
@@ -87,8 +135,6 @@ public class LocalizationManager {
 		if(!langCode.equals("en")) {
 			if(currentStrings.get(key) != null)
 				return currentStrings.get(key);
-		} else {
-			System.out.println("Skipping currentStrings");
 		}
 		
 		for(int i = 0; i < defaultStrings.size(); i++) {
@@ -116,18 +162,34 @@ public class LocalizationManager {
 		return langCode;
 	}
 
+	/**
+	 * Return <code>defaultStringsInputStream</code>.
+	 * @return
+	 */
 	public InputStream getDefaultStringsInputStream() {
 		return defaultStringsInputStream;
 	}
 
+	/**
+	 * Return <code>currentStringsInputStream</code>.
+	 * @return
+	 */
 	public InputStream getCurrentStringsInputStream() {
 		return currentStringsInputStream;
 	}
 
+	/**
+	 * Return <code>defaultStrings</code>.
+	 * @return
+	 */
 	public HashMap<String, String> getDefaultStrings() {
 		return defaultStrings;
 	}
 
+	/**
+	 * Return <code>currentStrings</code>.
+	 * @return
+	 */
 	public HashMap<String, String> getCurrentStrings() {
 		return currentStrings;
 	}
