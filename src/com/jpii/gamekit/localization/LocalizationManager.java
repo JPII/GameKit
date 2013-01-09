@@ -52,7 +52,7 @@ public class LocalizationManager {
 			}
 		}
 		
-		if(!langCode.equals("en") && !badFile) {
+		if(!langCode.equals("en")) {
 			Document currentStringDoc;
 
 			try {
@@ -85,7 +85,7 @@ public class LocalizationManager {
 	}
 	
 	/**
-	 * <code>LocalizationManager</code> constructor.
+	 * <code>LocalizationManager</code> constructor. 
 	 * Used to override automatic locale.
 	 * @param reference
 	 * @param dir
