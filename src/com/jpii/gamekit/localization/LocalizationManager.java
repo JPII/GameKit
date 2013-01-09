@@ -85,8 +85,8 @@ public class LocalizationManager {
 	}
 	
 	/**
-	 * <code>LocalizationManager</code> debug constructor. 
-	 * Used to override current language for testing.
+	 * <code>LocalizationManager</code> constructor.
+	 * Used to override automatic locale.
 	 * @param reference
 	 * @param dir
 	 * @param lang
