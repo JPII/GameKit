@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ShutdownManager {
 	
-	ArrayList<ShutdownRoutine> routines = new ArrayList<ShutdownRoutine>();
+	private ArrayList<ShutdownRoutine> routines = new ArrayList<ShutdownRoutine>();
 	
 	/**
 	 * Run all <code>ShutdownRoutines</code> that have been registered, then exit the program.
