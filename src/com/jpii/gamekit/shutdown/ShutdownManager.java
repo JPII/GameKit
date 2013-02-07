@@ -6,9 +6,19 @@ public class ShutdownManager {
 	
 	private ArrayList<ShutdownRoutine> routines = new ArrayList<ShutdownRoutine>();
 	
+	public ShutdownManager() {
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+		    public void run() {
+		    	runRoutines();
+		    }
+		}));
+	}
+	
 	/**
 	 * Run all <code>ShutdownRoutines</code> that have been registered, then exit the program.
 	 * Calls <code>onRoutineRun</code> and <code>onShutdown</code> events.
+	 * 
+	 * Also automatically called by <code>System.exit()</code>.
 	 */
 	public void runRoutines() {
 		for(ShutdownRoutine routine : routines) {
