@@ -17,9 +17,18 @@
 
 package com.jpii.gamekit;
 
+import com.jpii.gamekit.exception.InvalidApiLevelException;
+
 public class GameKit {
 	
 	private static final String VERSION = "1.0-PREVIEW";
+	private static final int API_LEVEL = 0;
+	
+	public static void checkVersion(int apiLevel) throws InvalidApiLevelException {
+		if(apiLevel > API_LEVEL) {
+			throw new InvalidApiLevelException("Invalid API level: " + apiLevel + " (currently implementing " + API_LEVEL + ")");
+		}
+	}
 	
 	/**
 	 * Get <code>GameKit</code> version.
@@ -27,6 +36,14 @@ public class GameKit {
 	 */
 	public static String getVersion() {
 		return VERSION;
+	}
+	
+	/**
+	 * Get <code>GameKit</code> API level.
+	 * @return
+	 */
+	public static int getApiLevel() {
+		return API_LEVEL;
 	}
 	
 	/**
