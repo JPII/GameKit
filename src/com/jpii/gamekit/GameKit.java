@@ -19,7 +19,7 @@ package com.jpii.gamekit;
 
 public class GameKit {
 	
-	private static final String VERSION = "1.0";
+	private static final String VERSION = "1.0-PREVIEW";
 	
 	/**
 	 * Get <code>GameKit</code> version.
