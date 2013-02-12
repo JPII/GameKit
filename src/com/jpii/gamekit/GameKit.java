@@ -30,6 +30,14 @@ public class GameKit {
 		}
 	}
 	
+	public static void checkVersion(int minApiLevel, int maxApiLevel) throws InvalidApiLevelException {
+		if(maxApiLevel < API_LEVEL) {
+			throw new InvalidApiLevelException("Invalid max API level: " + maxApiLevel + " (currently implementing " + API_LEVEL + ")");
+		} else if(minApiLevel > API_LEVEL) {
+			throw new InvalidApiLevelException("Invalid min API level: " + maxApiLevel + " (currently implementing " + API_LEVEL + ")");
+		}
+	}
+	
 	/**
 	 * Get <code>GameKit</code> version.
 	 * @return
