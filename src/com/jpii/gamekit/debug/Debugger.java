@@ -1,5 +1,6 @@
 package com.jpii.gamekit.debug;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import com.jpii.gamekit.GameKit;
@@ -16,6 +17,8 @@ public class Debugger {
 	 * @param title
 	 */
 	public Debugger(String title) {
+		System.setOut(new HookStream(new ByteArrayOutputStream()));
+		
 		instance = this;
 		debugWindow = new DebugWindow(title);
 		loggingPaused = false;
