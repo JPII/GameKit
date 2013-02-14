@@ -26,8 +26,8 @@ public class GameKit {
 	public static Debugger debug = null;
 	public static WindowHandler windows = null;
 	
-	private static final String VERSION = "1.0-PREVIEW";
-	private static final int API_LEVEL = 0;
+	private static final String VERSION = "1.0";
+	private static final int API_LEVEL = 1;
 	
 	public static void checkVersion(int apiLevel) throws InvalidApiLevelException {
 		if(apiLevel > API_LEVEL) {
