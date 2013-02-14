@@ -2,7 +2,7 @@ package com.jpii.gamekit.debug;
 
 import java.util.ArrayList;
 
-import com.jpii.gamekit.GlobalVariables;
+import com.jpii.gamekit.GameKit;
 
 public class Debugger {
 	
@@ -20,7 +20,7 @@ public class Debugger {
 		debugWindow = new DebugWindow(title);
 		loggingPaused = false;
 		savedLogs = new ArrayList<String>();
-		GlobalVariables.debug = instance;
+		GameKit.debug = instance;
 	}
 	
 	/**

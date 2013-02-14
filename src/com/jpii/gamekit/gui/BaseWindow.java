@@ -2,7 +2,7 @@ package com.jpii.gamekit.gui;
 
 import javax.swing.*;
 
-import com.jpii.gamekit.GlobalVariables;
+import com.jpii.gamekit.GameKit;
 
 @SuppressWarnings("serial")
 public class BaseWindow extends JFrame {
@@ -26,7 +26,7 @@ public class BaseWindow extends JFrame {
 	 * Suggested Window Size
 	 */
 	public BaseWindow() {
-		myHandler = GlobalVariables.windows;
+		myHandler = GameKit.windows;
 		myHandler.registerWindow(this);
 		setSize(myHandler.defaultx,myHandler.defaulty);
 		setDefaults();
@@ -38,7 +38,7 @@ public class BaseWindow extends JFrame {
 	 * @param y		height
 	 */
 	public BaseWindow(int x, int y) {
-		myHandler = GlobalVariables.windows;
+		myHandler = GameKit.windows;
 		myHandler.registerWindow(this);
 		setSize(x,y);
 	}
@@ -51,7 +51,7 @@ public class BaseWindow extends JFrame {
 	 * @param yloc		y-coordinate
 	 */
 	public BaseWindow(int x, int y,int xloc,int yloc) {
-		myHandler = GlobalVariables.windows;
+		myHandler = GameKit.windows;
 		myHandler.registerWindow(this);
 		setSize(x,y);
 		setLocation(xloc,yloc);
@@ -87,8 +87,8 @@ public class BaseWindow extends JFrame {
 	 * @param msg
 	 */
 	private void printDebug(String msg){
-		if(GlobalVariables.debug!=null){
-			GlobalVariables.debug.printInfo(msg);
+		if(GameKit.debug!=null){
+			GameKit.debug.printInfo(msg);
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class BaseWindow extends JFrame {
 	 */
 	public void nextWindow(BaseWindow next){
 		printDebug("Hiding "+name);
-		GlobalVariables.windows.setNewWindow(next);
+		GameKit.windows.setNewWindow(next);
 	}
 	
 	/**

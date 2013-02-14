@@ -12,7 +12,7 @@ public class WindowHandler {
 	public WindowHandler(int defaultx, int defaulty){
 		containedWindows = new ArrayList<BaseWindow>();
 		whiteList = new ArrayList<BaseWindow>();
-		GlobalVariables.windows = this;
+		GameKit.windows = this;
 		this.defaultx=defaultx;
 		this.defaulty=defaulty;
 	}

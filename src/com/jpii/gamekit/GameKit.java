@@ -17,9 +17,14 @@
 
 package com.jpii.gamekit;
 
+import com.jpii.gamekit.debug.Debugger;
 import com.jpii.gamekit.exception.InvalidApiLevelException;
+import com.jpii.gamekit.gui.WindowHandler;
 
 public class GameKit {
+	
+	public static Debugger debug = null;
+	public static WindowHandler windows = null;
 	
 	private static final String VERSION = "1.0-PREVIEW";
 	private static final int API_LEVEL = 0;
