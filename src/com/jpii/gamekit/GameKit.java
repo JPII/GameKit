@@ -31,7 +31,7 @@ public class GameKit {
 	
 	public static void checkVersion(int apiLevel) throws InvalidApiLevelException {
 		if(apiLevel > API_LEVEL) {
-			throw new InvalidApiLevelException("Invalid API level: " + apiLevel + " (currently implementing " + API_LEVEL + ")");
+			throw new InvalidApiLevelException("Invalid target API level: " + apiLevel + " (currently implementing " + API_LEVEL + ")");
 		}
 	}
 	
