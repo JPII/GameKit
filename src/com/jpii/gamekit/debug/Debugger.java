@@ -2,6 +2,8 @@ package com.jpii.gamekit.debug;
 
 import java.util.ArrayList;
 
+import com.jpii.gamekit.GlobalVariables;
+
 public class Debugger {
 	
 	private static Debugger instance;
@@ -18,6 +20,7 @@ public class Debugger {
 		debugWindow = new DebugWindow(title);
 		loggingPaused = false;
 		savedLogs = new ArrayList<String>();
+		GlobalVariables.debug = instance;
 	}
 	
 	/**
