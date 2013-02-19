@@ -29,10 +29,10 @@ public class WindowHandler {
 		whiteList.add(b);
 	}
 	
-	public void setNewWindow(BaseWindow next) {
+	public void setNewWindow(String next) {
 		for(int index = 0; index<containedWindows.size(); index++){		
 			BaseWindow temp = containedWindows.get(index);
-			if(temp.name.equals(next.name)){
+			if(temp.name.equals(next)){
 				temp.setVisible(true);
 			}
 			else{
