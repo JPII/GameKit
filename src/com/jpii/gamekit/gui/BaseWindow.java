@@ -19,7 +19,7 @@ public class BaseWindow extends JFrame {
 	protected int xloc;
 	protected int yloc;
 	protected WindowHandler myHandler;
-	public static String name = BaseWindow.class.toString().substring((BaseWindow.class.toString().lastIndexOf(".")+1));
+	public String name = getClass().getName().toString().substring((getClass().getName().toString().lastIndexOf(".")+1));
 	
 	/**
 	 * Default <code>Window</code> constructor.
@@ -116,9 +116,9 @@ public class BaseWindow extends JFrame {
 	
 	/**
 	 * Show next <code>Window</code> based on string supplied.
-	 * @param next		Name of <code>Window</code> to open. Do not include <code>.java</code>.
+	 * @param name		Name of <code>Window</code> to open. Do not include <code>.java</code>.
 	 */
-	public static void nextWindow(){
+	public void nextWindow(String name){
 		printDebug("Hiding "+name);
 		GameKit.windows.setNewWindow(name);
 	}
