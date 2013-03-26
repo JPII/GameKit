@@ -136,6 +136,10 @@ public class Debugger {
 		debugWindow.getCommandHandler().registerCommand(command);
 	}
 	
+	public void registerCommands(ArrayList<Command> commands) {
+		debugWindow.getCommandHandler().registerCommands(commands);
+	}
+	
 	/**
 	 * Get current <code>DebugWindow</code>.
 	 * @return

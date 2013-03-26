@@ -50,6 +50,11 @@ public class CommandHandler {
 		sort(commands);
 	}
 	
+	public void registerCommands(ArrayList<Command> commandsToRegister) {
+		commands.addAll(commandsToRegister);
+		sort(commands);
+	}
+	
 	/**
 	 * Parse command.
 	 * @param command
