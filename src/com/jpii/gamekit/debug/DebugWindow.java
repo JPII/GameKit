@@ -32,6 +32,7 @@ public class DebugWindow extends JFrame {
 	 * Constructor for DebugWindow.
 	 */
 	public DebugWindow(String title) {
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle("Debug Window");	
 		setSize(489,369);
 		getContentPane().setLayout(null);
