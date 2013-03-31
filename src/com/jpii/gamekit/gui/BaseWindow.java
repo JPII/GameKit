@@ -27,7 +27,6 @@ public class BaseWindow extends JFrame {
 	 */
 	public BaseWindow() {
 		myHandler = GameKit.windows;
-		myHandler.registerWindow(this);
 		setSize(myHandler.defaultx,myHandler.defaulty);
 		setDefaults();
 	}
@@ -39,7 +38,7 @@ public class BaseWindow extends JFrame {
 	 */
 	public BaseWindow(int x, int y) {
 		myHandler = GameKit.windows;
-		myHandler.registerWindow(this);
+		setDefaults();
 		setSize(x,y);
 	}
 	
@@ -52,7 +51,7 @@ public class BaseWindow extends JFrame {
 	 */
 	public BaseWindow(int x, int y,int xloc,int yloc) {
 		myHandler = GameKit.windows;
-		myHandler.registerWindow(this);
+		setDefaults();
 		setSize(x,y);
 		setLocation(xloc,yloc);
 	}
@@ -101,6 +100,7 @@ public class BaseWindow extends JFrame {
 		setResizable(false);
 		setFocusable(true);
 		setVisible(false);
+		myHandler.registerWindow(this);
 	}
 	
 	/**
@@ -112,6 +112,9 @@ public class BaseWindow extends JFrame {
 			printDebug("Showing " + name);
 			setLocation(xloc,yloc);
 		}
+		else{
+			printDebug("Hiding " + name);
+		}
 	}
 	
 	/**
@@ -119,7 +122,7 @@ public class BaseWindow extends JFrame {
 	 * @param name		Name of <code>Window</code> to open. Do not include <code>.java</code>.
 	 */
 	public void nextWindow(String name){
-		printDebug("Hiding "+name);
+		printDebug("Opening "+name);
 		GameKit.windows.setNewWindow(name);
 	}
 	
