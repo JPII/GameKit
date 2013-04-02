@@ -21,6 +21,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import com.jpii.gamekit.GameKit;
+
 @SuppressWarnings("serial")
 public class DebugWindow extends JFrame {
 	private JLabel lblTitle;
@@ -84,6 +86,18 @@ public class DebugWindow extends JFrame {
 			}	
 		});
 		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				JFrame frame = new JFrame();
+				String message = "Are you sure you want to quit?";
+				int answer = JOptionPane.showConfirmDialog(frame, message);
+				if (answer == JOptionPane.YES_OPTION) {
+					GameKit.debug.printInfo("Closing from DebugWindow!");
+					System.exit(0);
+				}
+			}
+		});
+
 		setResizable(false);
 		
 		commandField.grabFocus();
