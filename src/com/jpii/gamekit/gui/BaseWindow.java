@@ -82,16 +82,6 @@ public class BaseWindow extends JFrame {
 	}
 	
 	/**
-	 * Print to <code>DebugWindow</code>.
-	 * @param msg
-	 */
-	private static void printDebug(String msg){
-		if(GameKit.debug!=null){
-			GameKit.debug.printInfo(msg);
-		}
-	}
-	
-	/**
 	 * Set defaults for all <code>Windows</code>.
 	 */
 	protected void setDefaults(){
@@ -108,13 +98,8 @@ public class BaseWindow extends JFrame {
 	 */
 	public void setVisible(boolean visible){
 		super.setVisible(visible);
-		if(isVisible()){
-			printDebug("Showing " + name);
+		if(isVisible())
 			setLocation(xloc,yloc);
-		}
-		else{
-			printDebug("Hiding " + name);
-		}
 	}
 	
 	/**
@@ -122,7 +107,6 @@ public class BaseWindow extends JFrame {
 	 * @param name		Name of <code>Window</code> to open. Do not include <code>.java</code>.
 	 */
 	public void nextWindow(String name){
-		printDebug("Opening "+name);
 		GameKit.windows.setNewWindow(name);
 	}
 	
@@ -130,7 +114,6 @@ public class BaseWindow extends JFrame {
 	 * Dispose of <code>Window</code>.
 	 */
 	public void donewithMe(){
-		printDebug("Disposing "+name);
 		super.dispose();
 	}
 	
